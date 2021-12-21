@@ -6,8 +6,11 @@ import org.springframework.jdbc.core.RowMapper;
 import com.loginService.model.LoginUser;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserRepositoryImpl implements IUserRepository {
@@ -15,6 +18,7 @@ public class UserRepositoryImpl implements IUserRepository {
     private static final String INSERT = "INSERT INTO TBL_LOGIN_USER(USERNAME,PASSWORD) VALUES (?,?)";
     private static final String INSERT_INTO_USER_DRAFT_TOKEN_TABLE = "INSERT INTO USER_DRAFT_TOKEN(USER_ID, TOKEN) VALUES(?,?)";
     private static final String SELECT_BY_USERNAME = "SELECT * FROM USER_CRED WHERE USER_ID = ?";
+    private static final String SELECT_BY_TOKEN = "SELECT TOKEN FROM USER_DRAFT_TOKEN WHERE USER_ID = ?";
 
     @Autowired
     public JdbcTemplate jdbcTemplate;
@@ -38,11 +42,18 @@ public class UserRepositoryImpl implements IUserRepository {
     public String saveToDraftTokenTable(String userName, String randomToken) {
         Object[] objects = new Object[]{userName,randomToken};
         int save =  jdbcTemplate.update(INSERT_INTO_USER_DRAFT_TOKEN_TABLE,objects);
-        return "No of rows added"+save;
+
+        Map<String, String> draftTokenDetails = new HashMap<>();
+        draftTokenDetails.put(userName, randomToken);
+        System.out.println(draftTokenDetails.toString());
+        return "No of rows added "+save;
     }
 
     @Override
-    public String resetSystemPassword() {
+    public String resetSystemPassword(Map<String, String> details, HttpServletResponse response) {
+//        String token =
+//        response.setHeader("Bearer ",token);
+        System.out.println(details.toString());
         return null;
     }
 
@@ -63,6 +74,14 @@ public class UserRepositoryImpl implements IUserRepository {
             loginUser.setRole(role);
 
             return loginUser;
+        }
+    }
+
+    private static class UserRowMapper1 implements RowMapper<LoginUser>{
+
+        @Override
+        public LoginUser mapRow(ResultSet resultSet, int i) throws SQLException {
+            return null;
         }
     }
 

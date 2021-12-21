@@ -70,6 +70,7 @@ public class JwtAuthenticationController {
 	@PostMapping("/reset-system-password")
 	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletResponse response){
 //		response.setHeader("token",);
+		userRepository.resetSystemPassword(details,response);
 		return null;
 	}
 
