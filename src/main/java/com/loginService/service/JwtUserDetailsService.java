@@ -32,7 +32,7 @@ public class JwtUserDetailsService implements UserDetailsService {
 		}
 
 		if (loginUser != null) {
-			return new User(loginUser.getUserName(),loginUser.getPassword(),
+			return new User(loginUser.getUsername(),loginUser.getPassword(),
 					new ArrayList<>());
 		} else {
 			throw new UsernameNotFoundException("LoginUser not found with username: " + username);

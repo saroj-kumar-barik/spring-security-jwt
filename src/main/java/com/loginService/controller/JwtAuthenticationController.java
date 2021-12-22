@@ -20,9 +20,7 @@ import com.loginService.model.JwtRequest;
 import com.loginService.model.JwtResponse;
 import com.loginService.model.LoginUser;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin
@@ -41,14 +39,15 @@ public class JwtAuthenticationController {
 	private UserRepositoryImpl userRepository;
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest,
-													   HttpServletResponse response)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
+		System.out.println("Authenticatiomn req - "+authenticationRequest.getUsername());
+		System.out.println("Authenticatiomn req - "+authenticationRequest.getPassword());
 		LoginUser loginUser = userRepository.findByUserName(authenticationRequest.getUsername());
 
 		if (loginUser.getStatus().equals("DRAFT")){
 			String randomToken = UUID.randomUUID().toString();
-			return ResponseEntity.ok(userRepository.saveToDraftTokenTable(authenticationRequest.getUsername(),
+			return ResponseEntity.ok(userRepository.saveDraftToken(authenticationRequest.getUsername(),
 					randomToken));
 		}
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
@@ -68,10 +67,11 @@ public class JwtAuthenticationController {
 	}
 
 	@PostMapping("/reset-system-password")
-	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletResponse response){
-//		response.setHeader("token",);
-		userRepository.resetSystemPassword(details,response);
-		return null;
+	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletRequest request){
+		System.out.println("inside post resetSysPass()");
+		userRepository.resetSystemPassword(details,request);
+
+		return "new password saved successfully...";
 	}
 
 	private void authenticate(String username, String password) throws Exception {

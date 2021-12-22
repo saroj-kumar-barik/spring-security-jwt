@@ -2,7 +2,7 @@ package com.loginService.model;
 
 public class LoginUser {
     private Integer id;
-    private String userName;
+    private String username;
     private String password;
     private String role;
     private String status;
@@ -35,12 +35,12 @@ public class LoginUser {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -55,7 +55,7 @@ public class LoginUser {
     public String toString() {
         return "LoginUser{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userName='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }
