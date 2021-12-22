@@ -8,7 +8,6 @@ import com.loginService.model.LoginUser;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -76,6 +75,7 @@ public class UserRepositoryImpl implements IUserRepository {
             System.out.println("true");
         }
         return null;
+
     }
 
     public static class UserRowMapper implements RowMapper<LoginUser> {
@@ -98,7 +98,7 @@ public class UserRepositoryImpl implements IUserRepository {
         }
     }
 
-    public static class UserRowMapper1 implements RowMapper<UserDraftToken>{
+    public static class UserRowMapper1 implements RowMapper<UserDraftToken> {
 
         @Override
         public UserDraftToken mapRow(ResultSet resultSet, int i) throws SQLException {

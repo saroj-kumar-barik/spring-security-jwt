@@ -72,6 +72,7 @@ public class JwtAuthenticationController {
 	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletRequest request){
 		System.out.println("inside post resetSysPass()");
 		userRepository.resetSystemPassword(details,request);
+
 		return null;
 	}
 

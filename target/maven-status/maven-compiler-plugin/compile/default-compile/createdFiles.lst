@@ -10,7 +10,10 @@ com\loginService\config\AppBeanFactoryAware.class
 com\loginService\config\JwtAuthenticationEntryPoint.class
 com\loginService\config\AppConfig$DefaultProfile.class
 com\loginService\service\IUserRepository.class
+<<<<<<< HEAD
 com\loginService\model\UserDraftToken.class
+=======
+>>>>>>> 2254b300028044a9016cc9e365aa734683c6d8b8
 com\loginService\model\JwtResponse.class
 com\loginService\config\AppConfig.class
 com\loginService\service\UserRepositoryImpl$UserRowMapper1.class

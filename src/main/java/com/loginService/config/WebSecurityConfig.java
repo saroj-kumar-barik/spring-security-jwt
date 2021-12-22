@@ -73,6 +73,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 //		super.configure(web);
-		web.ignoring().antMatchers("/register").antMatchers("/authenticate").antMatchers("//reset-system-password");
+		web.ignoring().antMatchers("/register").antMatchers("/authenticate").antMatchers("/swagger-ui.html").antMatchers("/reset-system-password");
 	}
 }
