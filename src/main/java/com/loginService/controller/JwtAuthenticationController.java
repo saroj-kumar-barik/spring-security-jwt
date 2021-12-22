@@ -41,9 +41,10 @@ public class JwtAuthenticationController {
 	private UserRepositoryImpl userRepository;
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest,
-													   HttpServletResponse response)
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
+		System.out.println("Authenticatiomn req - "+authenticationRequest.getUsername());
+		System.out.println("Authenticatiomn req - "+authenticationRequest.getPassword());
 		LoginUser loginUser = userRepository.findByUserName(authenticationRequest.getUsername());
 
 		if (loginUser.getStatus().equals("DRAFT")){
@@ -68,8 +69,9 @@ public class JwtAuthenticationController {
 	}
 
 	@PostMapping("/reset-system-password")
-	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletResponse response){
-//		response.setHeader("token",);
+	public String resetSystemPassword(@RequestBody Map<String, String> details, HttpServletRequest request){
+		System.out.println("inside post resetSysPass()");
+		userRepository.resetSystemPassword(details,request);
 		return null;
 	}
 
